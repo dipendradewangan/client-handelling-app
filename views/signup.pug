@@ -1,0 +1,34 @@
+div.modal.fade#signup-modal
+    div.modal-dialog.modal-dialog-centered.modal-lg
+        div.modal-content
+            div.modal-body
+                div.row
+                    div.col-6( style="display: flex;align-items : center")
+                        img.w-100(src="images/signup.svg", alt="signup")
+                    div.col-6.py-4(style="padding-right: 20px")
+                        h1.display-4.mb-4(style="font-size : 35px") Register!
+                        form#signup-form
+                            div.form-floating.mb-3
+                                input.form-control#company_name(type="text" placeholder="company name" name="company_name")
+                                label(for="company_name") Company name
+                                span.company_name_error.text-danger 
+                            div.form-floating.mb-3
+                                input.form-control#company_email(type="email" placeholder="email id" name="email")
+                                label(for="company_email") Company email
+                                span.company_email_error.text-danger 
+                            div.form-floating.mb-3
+                                input.form-control#mobile(type="number" placeholder="mobile" name="mobile")
+                                label(for="mobile") Mobile
+                            div.form-floating.mb-3
+                                input.form-control#password(type="password" placeholder="password" name="password")
+                                label(for="password") Password
+                            div.form-floating.mb-3
+                                button.btn.signup-btn(type="submit" style="background : #377DFF; color : white; margin-right: 5px") Register now!
+                                button.btn.btn-light.before-send-signup.d-none(type="button" disabled)
+                                    span.spinner-border.spinner-border-sm(role="status" aria-hidden="true")
+                                    |   Processing...
+                                
+                            p 
+                            |   Allready have an account? 
+                            a(href="#" data-bs-toggle="modal" data-bs-target="#login-modal") Login
+

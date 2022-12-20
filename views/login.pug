@@ -1,0 +1,25 @@
+div.modal.fade#login-modal
+    div.modal-dialog.modal-dialog-centered.modal-lg
+        div.modal-content
+            div.modal-body
+                div.row
+                    div.col-6
+                        img.w-100.my-4(src="images/signup.svg", alt="login-banner")
+                    div.col-6(style="padding-right: 20px; display: flex; justify-content: center; flex-direction: column")
+                        h1.display-4.mb-4(style="font-size : 35px") Login
+                        form#login-form
+                            div.form-floating.mb-3 
+                                input.form-control#login_id(type="email" name="login_email" placeholder="Email id")
+                                label(for="login_id") Email id
+                            div.form-floating.mb-4 
+                                input.form-control#login_password(type="password" name="login-password"  placeholder="password")
+                                label(for="login_password") Enter password!
+                            div.form-floating.mb-2 
+                                button.btn.login-btn(style="background : #377DFF; color : white") Login now!
+                                button.btn.btn-light.d-none.before-send-login(type="button" disabled)
+                                    span.spinner-border.spinner-border-sm(role="status" aria-hidden="true")
+                                    |   Processing...
+                                
+                            p 
+                            |   New user? 
+                            a(href="#" data-bs-toggle="modal" data-bs-target="#signup-modal") Create an account!
