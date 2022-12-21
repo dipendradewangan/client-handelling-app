@@ -6,7 +6,10 @@ const encrypt = async (data)=>{
     return encrypted;
 }
 
-const decrypt = ()=>{}
+const decrypt = async (stored, typed)=>{
+    const decrypted = await bcrypt.compare(typed, stored);
+    return decrypted;
+}
 
 
 module.exports = {

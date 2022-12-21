@@ -10,6 +10,7 @@ const createUser = async (req, res) => {
             res.status(200).json({
                 isUserCreated : true,
                 message : 'User created!',
+                data : userRes
             })
         } catch (err) {
             res.status(409).json({
@@ -27,6 +28,37 @@ const createUser = async (req, res) => {
 
 
 
+const getUserPassword = async (req, res)=>{
+    const tokenData = tokenServices.verifyToken(req);  
+    if(tokenData.isVerified){
+        const query = tokenData.data;
+        const passRes = await databaseServices.getRecordByQuery(query,"user")
+        console.log(passRes);
+
+        if(passRes.length > 0){
+            res.status(200).json({
+                isCompanyExist : true,
+                message : "company found!",
+                data : passRes
+            })
+        }
+        else{
+            res.status(404).json({
+                isCompanyExist : false,
+                message : "company not found!"
+
+            })
+        }
+    } 
+    else{
+        res.status(401).json({
+            message : "permission denied!"
+        })
+    }
+}
+
+
 module.exports = {
-    createUser: createUser
+    createUser: createUser,
+    getUserPassword : getUserPassword
 }
