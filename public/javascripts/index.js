@@ -60,7 +60,12 @@ $(document).ready(function(){
             success : (res)=>{
                 // $(".login-btn").removeClass("d-none")
                 // $(".before-send-login").addClass("d-none")
-                console.log(res);
+                if(res.isLogged){
+                    window.location = "/profile";
+                }
+                else{
+
+                }
             }
         })
     })

@@ -14,6 +14,7 @@ const signupRoute = require("./routes/signup.routes");
 const loginRoute = require("./routes/login.routes");
 const companyRoute = require("./routes/company.routes");
 const userRoute = require("./routes/user.routes");
+const profileRoute = require("./routes/profile.routes");
 const tokenServices = require("./services/token.services");
 
 
@@ -36,6 +37,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.use("/", indexRoute);
 app.use("/api/signup", signupRoute);
 app.use("/api/login", loginRoute);
+app.use("/profile", profileRoute);
 
 
 // implimenting api sequerity
