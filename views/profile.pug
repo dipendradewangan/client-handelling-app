@@ -1,1 +1,19 @@
-h1 welcome to profile page
+doctype html 
+html 
+    head 
+        title profle
+        include bootstrap
+        link(rel="stylesheet" href="stylesheets/profile.css")
+        link(rel="stylesheet", href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css")
+    body
+        div.sidenav.sidenav-open
+        div.section.section-open
+            nav.navbar.navbar-expand-sm.bg-light.px-3.py-2.toggler
+                button.btn 
+                    i.fa.fa-align-left
+                ul.navbar-nav(style="margin-left : auto")
+                    li.nav-item 
+                        a.nav-link(href="#") Testing
+
+        //- include javascript files                        
+        script(src="javascripts/profile.js") 

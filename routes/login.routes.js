@@ -44,7 +44,8 @@ router.post("/", async (req, res) => {
                 res.status(200).json({
                     isLogged : true,
                     message : "success"
-                })
+                });
+
             }
             else{
                 res.status(401).json({
@@ -54,10 +55,12 @@ router.post("/", async (req, res) => {
             }
         }
         else{
-            res.json(passwordRes);
+            res.json(401);
+            res.json(passwordRes.body);
         }
     } else {
-
+        res.status(404);
+        res.json(compRes.body);
     }
 
 })

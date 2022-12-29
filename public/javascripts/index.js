@@ -26,6 +26,7 @@ $(document).ready(() => {
                     const label = data.message.label;
                     $("." + field + "_error").html(label)
                     $("#" + field).addClass("border-danger");
+                    // $("#" + field).addClass("text-danger");
                     $("#" + field).click(() => {
                         resetValidator(field);
                     });
@@ -63,8 +64,26 @@ $(document).ready(function(){
                 if(res.isLogged){
                     window.location = "/profile";
                 }
-                else{
-
+                // console.log(res);
+            },
+            error : (err)=>{
+                console.log(err.status)
+                console.log(err.responseJSON);
+                if(err.status == 404){
+                    // $("#login_id").addClass("text-danger");
+                    $("#login_id").addClass("border-danger");
+                    $(".login_id_error").html("Company not exist!");
+                    $("#login_id").click(()=>{
+                        resetValidator("login_id");
+                    })
+                }
+                else if(err.status == 401){
+                    // $("#login_password").addClass("text-danger");
+                    $("#login_password").addClass("border-danger");
+                    $(".login_password_error").html("Wrong password!");
+                    $("#login_password").click(()=>{
+                        resetValidator("login_password");
+                    })
                 }
             }
         })
@@ -72,7 +91,12 @@ $(document).ready(function(){
 })
 
 
+
+
+
 let resetValidator = (field) => {
+    // $("#" + field).removeClass("text-danger");
+    // $("#" + field).html("");
     $("#" + field).removeClass("border-danger");
     $("." + field + "_error").html("");
 }

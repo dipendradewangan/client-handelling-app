@@ -11,9 +11,11 @@ div.modal.fade#login-modal
                             div.form-floating.mb-3 
                                 input.form-control#login_id(type="email" name="login_email" placeholder="Email id")
                                 label(for="login_id") Email id
+                                span.text-danger.login_id_error 
                             div.form-floating.mb-4 
                                 input.form-control#login_password(type="password" name="login_password"  placeholder="password")
                                 label(for="login_password") Enter password!
+                                span.text-danger.login_password_error 
                             div.form-floating.mb-2 
                                 button.btn.login-btn(style="background : #377DFF; color : white") Login now!
                                 button.btn.btn-light.d-none.before-send-login(type="button" disabled)
