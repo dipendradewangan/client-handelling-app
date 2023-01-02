@@ -1,3 +1,9 @@
+// redirect in profile page without login by checking token in cookie
+if(document.cookie.indexOf('authToken') != -1){
+    window.location = "/profile";
+}
+
+
 // signup request
 
 $(document).ready(() => {
@@ -59,20 +65,28 @@ $(document).ready(function(){
                 $(".login-btn").addClass("d-none")
             },
             success : (res)=>{
-                // $(".login-btn").removeClass("d-none")
-                // $(".before-send-login").addClass("d-none")
+                $(".login-btn").removeClass("d-none")
+                $(".before-send-login").addClass("d-none")
                 if(res.isLogged){
                     window.location = "/profile";
+                }
+                else{
+                    $("#login_password").addClass("border-danger");
+                    $(".login_password_error").html("Wrong password!");
+                    $("#login_password").click(()=>{
+                        resetValidator("login_password");
+                    })
                 }
                 // console.log(res);
             },
             error : (err)=>{
-                console.log(err.status)
+                $(".login-btn").removeClass("d-none");
+                $(".before-send-login").addClass("d-none");
+                console.log(err.status);
                 console.log(err.responseJSON);
                 if(err.status == 404){
-                    // $("#login_id").addClass("text-danger");
                     $("#login_id").addClass("border-danger");
-                    $(".login_id_error").html("Company not exist!");
+                    $(".login_id_error").html("User not exist!");
                     $("#login_id").click(()=>{
                         resetValidator("login_id");
                     })
@@ -84,6 +98,9 @@ $(document).ready(function(){
                     $("#login_password").click(()=>{
                         resetValidator("login_password");
                     })
+                }
+                else{
+                    alert("Internal server error!");
                 }
             }
         })

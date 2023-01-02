@@ -37,7 +37,6 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.use("/", indexRoute);
 app.use("/api/signup", signupRoute);
 app.use("/api/login", loginRoute);
-app.use("/profile", profileRoute);
 
 
 // implimenting api sequerity
@@ -47,13 +46,16 @@ app.use( (req, res, next)=>{
     next();
   }
   else{
-    res.status(401).json({message : "permission denied"});
+    res.status(401);
+    res.clearCookie("authToken");
+    res.redirect("/");
   }
 })
 
 
 app.use("/api/private/company", companyRoute);
 app.use("/api/private/user", userRoute);
+app.use("/profile", profileRoute);
 
 
 // catch 404 and forward to error handler

@@ -6,8 +6,15 @@ router.post("/", (req, res)=>{
     userController.createUser(req, res);
 });
 
+
 router.get("/:query", (req, res)=>{
     userController.getUserPassword(req,res);
+})
+
+
+router.put("/:id", (req, res)=>{
+    userController.createLog(req, res);
+    
 })
 
 

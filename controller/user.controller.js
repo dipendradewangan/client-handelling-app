@@ -33,7 +33,7 @@ const getUserPassword = async (req, res)=>{
     if(tokenData.isVerified){
         const query = tokenData.data;
         const passRes = await databaseServices.getRecordByQuery(query,"user")
-        console.log(passRes);
+        // console.log(passRes);
 
         if(passRes.length > 0){
             res.status(200).json({
@@ -57,8 +57,23 @@ const getUserPassword = async (req, res)=>{
     }
 }
 
+const createLog = async (req)=>{
+    const tokenData = await tokenServices.verifyToken(req);
+    if(tokenData.isVerified){
+        console.log("accepted");
+    }
+    else{
+        res.status(401).json({
+            message : "permission denied!"
+        })
+    }
+}
+
+
+
 
 module.exports = {
     createUser: createUser,
-    getUserPassword : getUserPassword
+    getUserPassword : getUserPassword,
+    createLog : createLog
 }

@@ -38,8 +38,20 @@ router.post("/", async (req, res) => {
             const typedPassword = req.body.login_password;
             const decryptedPassword = await bcryptServices.decrypt(storedPassword, typedPassword);
             if(decryptedPassword){
-                const secondsIn7days = (60*60*24*7)
-                const authToken = await tokenServices.createCustomToken(query, secondsIn7days);
+                const secondsIn7days =  (60*60*24*7) // (make for only days)
+                const authToken = await tokenServices.createCustomToken(query, secondsIn7days, {maxAge : secondsIn7days});
+
+                // update token in database
+                const dbToken = await httpServices.putRequest({
+                    endpoint : req.get("origin"),
+                    api : "/api/private/user",
+                    data : authToken
+                });
+
+                console.log(dbToken);
+
+
+
                 res.cookie("authToken",authToken);
                 res.status(200).json({
                     isLogged : true,
@@ -55,11 +67,11 @@ router.post("/", async (req, res) => {
             }
         }
         else{
-            res.json(401);
+            res.status(passwordRes.status);
             res.json(passwordRes.body);
         }
     } else {
-        res.status(404);
+        res.status(compRes.status);
         res.json(compRes.body);
     }
 
