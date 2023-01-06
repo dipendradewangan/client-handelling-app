@@ -16,6 +16,7 @@ const companyRoute = require("./routes/company.routes");
 const userRoute = require("./routes/user.routes");
 const profileRoute = require("./routes/profile.routes");
 const tokenServices = require("./services/token.services");
+const authController = require("./controller/auth.controller");
 
 
 
@@ -52,10 +53,27 @@ app.use( (req, res, next)=>{
   }
 })
 
+// implimenting middleware for checking user already login or not
+const appLogger = ()=>{
+  return async (req, res, next)=>{
+    
+    const isLogged = await authController.checkUserLog(req);
+    if(isLogged){
+      next();
+    }
+    else{
+      res.status(401).json({
+        message : "parmission denied!"
+      })
+    }
+    
+  }
+}
+
 
 app.use("/api/private/company", companyRoute);
 app.use("/api/private/user", userRoute);
-app.use("/profile", profileRoute);
+app.use("/profile", appLogger(),profileRoute);
 
 
 // catch 404 and forward to error handler
