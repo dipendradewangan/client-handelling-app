@@ -33,8 +33,6 @@ const getUserPassword = async (req, res)=>{
     if(tokenData.isVerified){
         const query = tokenData.data;
         const passRes = await databaseServices.getRecordByQuery(query,"user")
-        // console.log(passRes);
-
         if(passRes.length > 0){
             res.status(200).json({
                 isCompanyExist : true,
@@ -57,10 +55,25 @@ const getUserPassword = async (req, res)=>{
     }
 }
 
-const createLog = async (req)=>{
+const createLog = async (req, res)=>{
     const tokenData = await tokenServices.verifyToken(req);
     if(tokenData.isVerified){
-        console.log("accepted");
+        const query = {
+            uid : tokenData.data.uid
+        }
+
+        const data = {
+            token : req.body.token,
+            updatedAt : Date.now(),
+            isLogged : true,
+            expiresIn : 86400
+        }
+        
+        const updatedData = await databaseServices.updateRecordByQuery(query, 'user', data);
+        res.status(201).json({
+            message : "Update Success!"
+        })
+        
     }
     else{
         res.status(401).json({

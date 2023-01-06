@@ -11,6 +11,15 @@ const userSchema = new Schema({
         type : String,
         required : [true, "Password field is required"]
     },
+    token: {
+        type : String
+    },
+    expiresIn : {
+        type : Number
+    },
+    isLogged : {
+        type : Boolean
+    },
     createdAt : {
         type : Date,
         default : Date.now

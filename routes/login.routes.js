@@ -42,13 +42,13 @@ router.post("/", async (req, res) => {
                 const authToken = await tokenServices.createCustomToken(query, secondsIn7days, {maxAge : secondsIn7days});
 
                 // update token in database
-                const dbToken = await httpServices.putRequest({
+                const userUpdateRes = await httpServices.putRequest({
                     endpoint : req.get("origin"),
                     api : "/api/private/user",
                     data : authToken
                 });
 
-                console.log(dbToken);
+                console.log(userUpdateRes.body);
 
 
 
