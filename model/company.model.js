@@ -45,7 +45,7 @@ companySchema.pre("save", async function(next){
             label : "Company name already exists!",
             field : "company_name"
         }
-        throw next(compError)
+        next(compError)
     }
     else{
         next()
@@ -67,7 +67,7 @@ companySchema.pre("save", async function(next){
             label : "Email id already exists!",
             field : "company_email"
         }
-        throw next(compError);
+        next(compError);
     }
     else{
         next();

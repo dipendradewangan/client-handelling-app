@@ -18,7 +18,8 @@ createCompany = async (req, res) => {
                 data : dataRes
             })
         } catch (err) {
-            res.status(409).json({
+            res.status(409);
+            res.json({
                 isCompanyCreated: false,
                 message: err
             })

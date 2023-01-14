@@ -23,12 +23,32 @@ $(document).ready(() => {
                 $(".signup-btn").removeClass("d-none");
                 $(".before-send-signup").addClass("d-none");
                 
+                // redireact user to profile page
                 if(res.isUserCreated){
                     window.location = "/profile"
                 }
             },
             error: (err) => {
-                console.log(err);
+                $(".before-send-signup").addClass("d-none");
+                $(".signup-btn").removeClass("d-none");
+                if(err.status == 409){
+                    const data = JSON.parse(err.responseText);
+                    if (data.isCompanyCreated) {
+                        $("#signup-form").trigger("reset");
+    
+                    } else {
+                        const field = data.message.field;
+                        const label = data.message.label;
+                        $("." + field + "_error").html(label)
+                        $("#" + field).addClass("border-danger");
+                        $("#" + field).click(() => {
+                            resetValidator(field);
+                        });
+                    }
+                }
+                else{
+                    alert("Internal server error!");
+                }
             }
 
         })
