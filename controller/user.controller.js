@@ -5,11 +5,33 @@ const createUser = async (req, res) => {
     const token = tokenServices.verifyToken(req);
     if (token.isVerified) {
         const data = token.data;
+        
         try {
+            // create token for autologin at the time of signup code start
+            const uidJson = {
+                uid : token.data.uid
+            }
+            const endpoint = req.get("origin") || "http://"+req.get("host");
+            const exipiresIn = 86400;
+            const storeTokenInDb = {
+                body : uidJson,
+                endpoint : endpoint,
+                api : req.originalUrl,
+                iss : endpoint+req.originalUrl
+            } 
+            
+            
+            const newToken = await tokenServices.createCustomToken(storeTokenInDb, exipiresIn);
+            data["token"] = newToken;
+            data["expiresIn"] = exipiresIn;
+            data["isLogged"] = true;
+
+            // create token for autologin at the time of signup code end
             const userRes = await databaseServices.createRecord(data, 'user');
             res.status(200).json({
                 isUserCreated : true,
                 message : 'User created!',
+                token : newToken,
                 data : userRes
             })
         } catch (err) {

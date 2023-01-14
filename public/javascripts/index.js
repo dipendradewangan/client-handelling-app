@@ -22,20 +22,9 @@ $(document).ready(() => {
             success: (res) => {
                 $(".signup-btn").removeClass("d-none");
                 $(".before-send-signup").addClass("d-none");
-                const data = JSON.parse(res.text);
-                if (data.isCompanyCreated) {
-                    // redireact user to profile page
-                    $("#signup-form").trigger("reset");
-
-                } else {
-                    const field = data.message.field;
-                    const label = data.message.label;
-                    $("." + field + "_error").html(label)
-                    $("#" + field).addClass("border-danger");
-                    // $("#" + field).addClass("text-danger");
-                    $("#" + field).click(() => {
-                        resetValidator(field);
-                    });
+                
+                if(res.isUserCreated){
+                    window.location = "/profile"
                 }
             },
             error: (err) => {

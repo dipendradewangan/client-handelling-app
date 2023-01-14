@@ -36,10 +36,12 @@ router.post("/", async (req, res) => {
             api : "/api/private/user",
             data : userToken
         });
-
-        res.json(userRes);
+        res.cookie("authToken", userRes.body.token, {maxAge : (86400*1000)})
+        res.status(userRes.status);
+        res.json(userRes.body);
     } else {
-        res.json(companyRes);
+        res.json(companyRes.status)
+        res.json(companyRes.body);
     }
 
 
