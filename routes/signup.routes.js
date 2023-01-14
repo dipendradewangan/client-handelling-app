@@ -5,7 +5,6 @@ const httpServices = require("../services/http.services");
 
 router.post("/", async (req, res) => {
     const expiresIn = 120;
-    console.log(req.get("origin"));
     const token = await tokenServices.createToken(req, expiresIn);
 
     // requesting compnay api

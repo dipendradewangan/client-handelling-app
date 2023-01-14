@@ -26,47 +26,62 @@ router.post("/", async (req, res) => {
             iss: req.get("origin") + req.originalUrl
         }
         const uidToken = await tokenServices.createCustomToken(query, expiresIn);
-        
+
         const passwordRes = await httpServices.getRequest({
             endpoint: req.get("origin"),
             api: "/api/private/user",
             data: uidToken
         });
-        
-        if(passwordRes.body.isCompanyExist){
+
+
+
+        if (passwordRes.body.isCompanyExist) {
+
+            // allow single device login
+            // if(passwordRes.body.data[0].isLogged){
+            //     res.status(406).json({
+            //         message : "Logout from other device!"
+            //     })
+            //     return false;
+            // }
+
+
+
+
+
             const storedPassword = passwordRes.body.data[0].password;
             const typedPassword = req.body.login_password;
             const decryptedPassword = await bcryptServices.decrypt(storedPassword, typedPassword);
-            if(decryptedPassword){
-                const secondsIn7days =  (60*60*24*7) // (make for only days)
-                const authToken = await tokenServices.createCustomToken(query, secondsIn7days, {maxAge : secondsIn7days});
+            if (decryptedPassword) {
+                const secondsInOneDay = (60 * 60 * 24) // (make for only days)
+                const authToken = await tokenServices.createCustomToken(query, secondsInOneDay);
 
                 // update token in database
                 const userUpdateRes = await httpServices.putRequest({
-                    endpoint : req.get("origin"),
-                    api : "/api/private/user",
-                    data : authToken
+                    endpoint: req.get("origin"),
+                    api: "/api/private/user",
+                    data: authToken
                 });
 
                 console.log(userUpdateRes.body);
 
 
 
-                res.cookie("authToken",authToken);
+                res.cookie("authToken", authToken, {
+                    maxAge: (secondsInOneDay * 1000)
+                });
                 res.status(200).json({
-                    isLogged : true,
-                    message : "success"
+                    isLogged: true,
+                    message: "success"
                 });
 
-            }
-            else{
+            } else {
                 res.status(401).json({
-                    isLogged : false,
-                    message : "wrong password!"
+                    isLogged: false,
+                    message: "wrong password!"
                 })
             }
-        }
-        else{
+        } else {
             res.status(passwordRes.status);
             res.json(passwordRes.body);
         }
