@@ -52,6 +52,44 @@ const checkUserLog = async (req, res) => {
     }
 }
 
+
+const logout = async (req, res)=>{
+    // to verify token
+    const tokenData = await tokenServices.verifyToken(req);
+    if(tokenData.isVerified){
+
+        // preparing data for update
+        const updateData = {
+            isLogged : false,
+            updatedAt : Date.now()
+        }
+
+        // finding the uid for query
+        const query = {
+            uid : tokenData.data.uid
+        }
+
+        
+        const updateRes = await databaseServices.updateRecordByQuery(query,"user",updateData);
+
+        // if any modified data in response we done have successfully update in data base and successfully logout
+        if(updateRes.modifiedCount){
+            res.clearCookie("authToken");
+            res.redirect("/");
+        }
+        else{
+            res.redirect("/profile");
+        }
+        
+    }
+    else{
+        res.status(401).json({
+            message : "permission denied!"
+        })
+    }
+} 
+
 module.exports = {
-    checkUserLog: checkUserLog
+    checkUserLog: checkUserLog,
+    logout: logout
 }

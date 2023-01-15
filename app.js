@@ -17,6 +17,7 @@ const userRoute = require("./routes/user.routes");
 const profileRoute = require("./routes/profile.routes");
 const tokenServices = require("./services/token.services");
 const authController = require("./controller/auth.controller");
+const logutRoute = require("./routes/logout.routes");
 
 
 
@@ -74,6 +75,7 @@ const appLogger = () => {
 
 app.use("/api/private/company", companyRoute);
 app.use("/api/private/user", userRoute);
+app.use("/logout", logutRoute);
 app.use("/profile", appLogger(), profileRoute);
 
 
