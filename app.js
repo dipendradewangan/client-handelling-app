@@ -17,7 +17,10 @@ const userRoute = require("./routes/user.routes");
 const profileRoute = require("./routes/profile.routes");
 const tokenServices = require("./services/token.services");
 const authController = require("./controller/auth.controller");
+const teamsRoute = require("./routes/teams.routes");
+const clientsRoute = require("./routes/clients.routes");
 const logutRoute = require("./routes/logout.routes");
+
 
 
 
@@ -77,6 +80,8 @@ app.use("/api/private/company", companyRoute);
 app.use("/api/private/user", userRoute);
 app.use("/logout", logutRoute);
 app.use("/profile", appLogger(), profileRoute);
+app.use("/clients", clientsRoute);
+app.use("/teams", teamsRoute);
 
 
 // catch 404 and forward to error handler
