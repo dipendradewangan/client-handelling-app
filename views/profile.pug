@@ -5,6 +5,9 @@ html
         include bootstrap
         link(rel="stylesheet" href="stylesheets/profile.css")
         link(rel="stylesheet", href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css")
+        
+        block loadStyles 
+
     body
 
         - const toolbar = [{label : "Clients", icon : "fas fa-user-secret", link : "/clients"},{label : "Teams", icon : "fas fa-user", link : "/teams"},{label : "Logout", icon : "fa fa-sign-out-alt", link : "/logout"}]
@@ -21,7 +24,7 @@ html
                             button.btn.toolbar.p-0.ml-2(title=menu.label) 
                                 a.nav-link(href=menu.link) 
                                     i(class=menu.icon)
-            div 
+            div.px-4.py-2 
                 block content
                     
 

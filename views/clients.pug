@@ -1,3 +1,36 @@
 include profile.pug
+    block loadStyles 
+        link(rel="stylesheet" href="stylesheets/clients.css")
+
     block content   
-        h1 this is dippu
+        p.medium-font Clients
+        div.card
+            div.card-body
+                div.row.container-fluid.border-none
+                    div.col-md-3 
+                        input.input.form-control.remove-focus(placeholer="Search")
+                    div.col-md-6 
+                    div.col-md-3.d-flex.justify-content-end
+                        button.btn.btn-light.me-4 export
+                        button.btn.btn-primary(data-bs-toggle="modal" data-bs-target="#clientModal") Add Client
+        
+        div.modal.animate__animated.animate__slideInDown.animate__faster#clientModal
+            div.modal-dialog.modal-dialog-centered.border-none
+                div.modal-content
+                    div.modal-body
+                        h2.modium-font Client Details
+                        form
+                            div.form-group.mb-3
+                                input.input.form-control.remove-focus(type="text" name="clientName" placeholder="Client Name")
+                            div.form-group.mb-3
+                                input.input.form-control.remove-focus(type="email" name="clientEmail" placeholder="Client Email")
+                            div.form-group.mb-3
+                                input.input.form-control.remove-focus(type="text" name="clientCountry" placeholder="Country")
+                            div.form-group.mb-3.d-flex
+                                button.btn.btn-light.me-2(type="button" disabled) +91
+                                input.input.form-control.remove-focus(type="number" name="clientMobile" placeholder="Mobile")
+                            div.form-group.mb-3.d-flex
+                                button.btn.btn-primary(type="submit") Submit
+
+    block scripts 
+        script(src="javascripts/clients.js")
