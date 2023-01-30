@@ -8,6 +8,7 @@ const createUser = async (req, res) => {
         
         try {
             // create token for autologin at the time of signup code start
+            
             const uidJson = {
                 uid : token.data.uid
             }
