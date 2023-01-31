@@ -1,8 +1,13 @@
 const companySchema = require("../model/company.model");
 const userSchema = require("../model/user.model");
+const clientSchema = require("../model/clients.model");
+
+
 const mongo = require("mongoose");
 const url = "mongodb://127.0.0.1:27017/cloneFrontwap";
+
 mongo.set('strictQuery', false);
+
 mongo.connect(url).then(()=>{
     console.log("Database successfully connected");
 }).catch((err)=>{
@@ -10,9 +15,11 @@ mongo.connect(url).then(()=>{
 })
 
 
+// dynamic schema selection json data 
 const schemaList = {
     user : userSchema,
-    company : companySchema
+    company : companySchema,
+    client : clientSchema
 }
 
 
