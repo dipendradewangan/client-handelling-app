@@ -4,7 +4,7 @@ const clientSchema = require("../model/clients.model");
 
 
 const mongo = require("mongoose");
-const url = "mongodb://127.0.0.1:27017/cloneFrontwap";
+const url = "mongodb+srv://dippu:dippu@cluster0.pe8vd6t.mongodb.net/cloneFrontwap";
 
 mongo.set('strictQuery', false);
 
