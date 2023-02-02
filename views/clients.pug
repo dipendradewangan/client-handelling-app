@@ -19,7 +19,7 @@ include profile.pug
                 div.modal-content
                     div.modal-body
                         h2.modium-font Client Details
-                        form
+                        form#addClientForm
                             div.form-group.mb-3
                                 input.input.form-control.remove-focus(type="text" name="clientName" placeholder="Client Name")
                             div.form-group.mb-3
@@ -30,7 +30,7 @@ include profile.pug
                                 button.btn.btn-light.me-2#code(type="button" disabled) +91
                                 input.input.form-control.remove-focus(type="number" name="clientMobile" placeholder="Mobile")
                             div.form-group.mb-3.d-flex
-                                button.btn.btn-primary(type="submit") Submit
+                                button.btn.btn-primary#add-client-submit(type="submit") Submit
 
     block scripts 
         script(src="javascripts/clients.js")

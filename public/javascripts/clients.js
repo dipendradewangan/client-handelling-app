@@ -1,3 +1,5 @@
+// set contry code in mobile number form
+
 $(document).ready(()=>{
     $("#country").on("input", async function(){
         let keyword = $(this).val().toLowerCase();
@@ -9,7 +11,6 @@ $(document).ready(()=>{
             
             for(let country of countries){
                 if(country.name.toLowerCase().indexOf(keyword) != -1){
-                    console.log(country)
                     $("#code").html(country.dial_code);
                 }
             }
@@ -33,6 +34,45 @@ $(document).ready(()=>{
     })
 })
 
+
+// add client request
+$(document).ready(function(){
+    $("#addClientForm").submit(async function(event){
+        event.preventDefault();
+        const formdata = new FormData(event.target);
+        const tokenData = getCookie("authToken");
+        if(tokenData.isFindToken){
+            formdata.append("token",tokenData.token);
+            const request = {
+                type : "POST",
+                url : "/clients",
+                data : formdata,
+            }
+            const clientRes = await ajax(request);
+            console.log(clientRes);
+        }
+        else{
+            alert("Unauthenticated token!");
+        }
+    })
+})
+
+
+const getCookie = (cookieName)=>{
+    const allCookie = document.cookie;
+    const cookieArray = allCookie.split(";");
+    for(let cookie of cookieArray){
+        if(cookie.indexOf(cookieName) != -1){
+            return {
+                isFindToken : true,
+                token : cookie.split("=")[1]
+            }
+        }
+    }
+    return {
+        isFindToken : false,
+    };
+}
 
 
 const checkDataInLocalStorage = (key)=>{
@@ -61,6 +101,9 @@ const ajax = (request)=>{
         $.ajax({
             type : request.type,
             url : request.url,
+            data : request.type == "GET" ? {}: request.data,
+            processData : request.type == "GET" ? true : false,
+            contentType : request.type == "GET" ? "application/json" :false,
             success : (res)=>{
                 resolve(res) 
             },
