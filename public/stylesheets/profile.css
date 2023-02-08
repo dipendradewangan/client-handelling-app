@@ -129,6 +129,35 @@ button:focus {
 }
 
 
+/* skeleton loader */
+.skeleton{
+  position: relative;
+  overflow: hidden;
+}
+
+.skeleton-loader{
+  width: 80%;
+  height: 100%;
+  background-color: linear-gradient(to right, #f5f5f5, white, #f5f5f5);
+  position: absolute;
+  top: 0;
+  left: 100%;
+  animation: loader linear 2s infinite;
+}
+
+
+@keyframes loader {
+  from{
+    top: 0;
+    left: -100%;
+  }
+
+  to{
+    top:0;
+    left: 0;
+  }
+}
+
 
 /* 
 body {

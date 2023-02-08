@@ -3,16 +3,36 @@ include profile.pug
         link(rel="stylesheet" href="stylesheets/clients.css")
 
     block content   
+        -   const skeletonArray = [0,1,2,3,4,5,6,1,2,3,4,5,6];
         p.medium-font Clients
         div.card
-            div.card-body
-                div.row.container-fluid.border-none
+            div.card-body.container-fluid.p-3.border-none
+                div.row
                     div.col-md-3 
                         input.input.form-control.remove-focus(placeholer="Search")
                     div.col-md-6 
                     div.col-md-3.d-flex.justify-content-end
                         button.btn.btn-light.me-4 export
                         button.btn.btn-primary(data-bs-toggle="modal" data-bs-target="#clientModal") Add Client
+                table.table.border-top.my-4
+                    tr 
+                        th client
+                        th client
+                        th client
+                        th client
+                        th client
+                        th client
+
+                    each data of skeletonArray
+                        tr 
+                            td.py-3(colspan="6") 
+                                div.d-flex.gap-3
+                                    div.d-flex.align-items-center
+                                        div.skeleton#client-pic
+                                            div.skeleton-loader
+                                    div.w-100.d-flex.flex-column.gap-2 
+                                        div#client-title
+                                        div#client-subtitle
         
         div.modal.animate__animated.animate__slideInDown.animate__faster#clientModal
             div.modal-dialog.modal-dialog-centered.border-none
