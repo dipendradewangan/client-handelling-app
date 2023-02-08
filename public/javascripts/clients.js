@@ -40,16 +40,30 @@ $(document).ready(function(){
     $("#addClientForm").submit(async function(event){
         event.preventDefault();
         const formdata = new FormData(event.target);
+        
+        // find the token from browser cookie
         const tokenData = getCookie("authToken");
+        
+        // perform operation according to token available or not
         if(tokenData.isFindToken){
             formdata.append("token",tokenData.token);
             const request = {
                 type : "POST",
                 url : "/clients",
                 data : formdata,
+                submitBtn : "#add-client-submit",
+                loaderBtn : "#add-client-loader"
             }
-            const clientRes = await ajax(request);
-            console.log(clientRes);
+            try{
+                const clientRes = await ajax(request);
+                console.log(clientRes);
+                $("#clientModal").modal("hide");
+            }
+            catch(error){
+                console.log(error);
+                $(".client-email").addClass("text-danger");
+
+            }
         }
         else{
             alert("Unauthenticated token!");
@@ -104,10 +118,18 @@ const ajax = (request)=>{
             data : request.type == "GET" ? {}: request.data,
             processData : request.type == "GET" ? true : false,
             contentType : request.type == "GET" ? "application/json" :false,
+            beforeSend : ()=>{
+                $(request.loaderBtn).removeClass("d-none");
+                $(request.submitBtn).addClass("d-none");
+            },
             success : (res)=>{
+                $(request.loaderBtn).addClass("d-none");
+                $(request.submitBtn).removeClass("d-none");
                 resolve(res) 
             },
             error : (err)=>{
+                $(request.loaderBtn).addClass("d-none");
+                $(request.submitBtn).removeClass("d-none");
                 reject(err);
             }
         });

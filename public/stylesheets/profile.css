@@ -44,6 +44,9 @@
   color: white
 }
 
+.text-red{
+  color: red;
+}
 .sidenav {
   height: 100%;
   position: fixed;
