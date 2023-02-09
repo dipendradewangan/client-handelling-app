@@ -108,6 +108,42 @@ button:focus {
   transition: 0.5s
 }
 
+th{
+  background: #f5f5f5 !important;
+  border: 1px solid #f5f5f5;
+}
+
+/* skeleton loader */
+.skeleton{
+  position: relative;
+  overflow: hidden;
+}
+
+.skeleton-loader{
+  width: 80%;
+  height: 100%;
+  background-image: linear-gradient(to right, #f5f5f5, white, #f5f5f5);
+  position: absolute;
+  top: 0;
+  left: 100%;
+  animation: loader linear 2s infinite;
+}
+
+
+@keyframes loader {
+  from{
+    top: 0;
+    left: -100%;
+  }
+  
+  to{
+    top:0;
+    left: 0;
+  }
+}
+
+
+
 @media(max-width:768px)
 {
   .sidenav-open {
@@ -126,36 +162,6 @@ button:focus {
     margin-left: 60px
   }
 
-}
-
-
-/* skeleton loader */
-.skeleton{
-  position: relative;
-  overflow: hidden;
-}
-
-.skeleton-loader{
-  width: 80%;
-  height: 100%;
-  background-color: linear-gradient(to right, #f5f5f5, white, #f5f5f5);
-  position: absolute;
-  top: 0;
-  left: 100%;
-  animation: loader linear 2s infinite;
-}
-
-
-@keyframes loader {
-  from{
-    top: 0;
-    left: -100%;
-  }
-
-  to{
-    top:0;
-    left: 0;
-  }
 }
 
 
