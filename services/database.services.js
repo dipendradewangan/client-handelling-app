@@ -40,6 +40,15 @@ const getRecordByQuery = async (query,schemaName)=>{
 }
 
 
+// get total count in db
+const countData = async (schemaName)=>{
+    const schema = schemaList[schemaName];
+    const dataRes = await schema.countDocuments();
+    return dataRes;
+}
+
+
+
 // update
 const updateRecordByQuery = async (query, schemaName, data)=>{
     const Schema = schemaList[schemaName];
@@ -50,5 +59,6 @@ const updateRecordByQuery = async (query, schemaName, data)=>{
 module.exports = {
     createRecord : createRecord,
     getRecordByQuery : getRecordByQuery,
-    updateRecordByQuery : updateRecordByQuery
+    updateRecordByQuery : updateRecordByQuery,
+    countData : countData
 }
