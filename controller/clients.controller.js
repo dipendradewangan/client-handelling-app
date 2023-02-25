@@ -48,7 +48,18 @@ const countClients = async (req, res) => {
     }
 };
 
+
+const paginate = async (req, res)=>{
+    const from = req.params.from;
+    const to = req.params.to;
+    const dataRes = await dbServices.paginate(from,to,'client');
+    res.status(200).json({
+        data : dataRes
+    })
+}
+
 module.exports = {
     create: create,
     countClients: countClients,
+    paginate : paginate
 };

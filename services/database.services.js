@@ -56,9 +56,17 @@ const updateRecordByQuery = async (query, schemaName, data)=>{
     return collection;
 }
 
+
+const paginate = async (from, to, schemaName)=>{
+    const schema = schemaList[schemaName];
+    const collection = await schema.find().skip(from).limit(to)
+    return collection;
+}
+
 module.exports = {
     createRecord : createRecord,
     getRecordByQuery : getRecordByQuery,
     updateRecordByQuery : updateRecordByQuery,
-    countData : countData
+    countData : countData,
+    paginate : paginate
 }
