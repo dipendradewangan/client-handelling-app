@@ -19,3 +19,31 @@
     height: 15px;
     background-color: #f5f5f5;
 }
+
+
+.icon-btn-primary{
+    width: 39px;
+    height: 39px;
+    border-radius: 50%;
+    background-color: #eeeef7;
+    border: none;
+    color: #234bd1;
+
+}
+.icon-btn-danger{
+    width: 39px;
+    height: 39px;
+    border-radius: 50%;
+    background-color: #f7eeef;
+    border: none;
+    color: #d12323;
+
+}
+.icon-btn-info{
+    width: 39px;
+    height: 39px;
+    border-radius: 50%;
+    background-color: #f4eef7;
+    border: none;
+    color: #a823d1;
+}
